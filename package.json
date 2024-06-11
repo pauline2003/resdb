@@ -1,4 +1,8 @@
 {
+  "name": "restaurant_db-main",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
   "scripts": {
     "dev": "tsx watch src/index.ts",
     "build": "tsc",
@@ -31,5 +35,8 @@
     "drizzle-kit": "^0.22.2",
     "tsx": "^4.7.1",
     "typescript": "^5.4.5"
-  }
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
 }
