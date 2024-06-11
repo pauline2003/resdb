@@ -7,10 +7,7 @@
     "dev": "tsx watch src/index.ts",
     "build": "tsc",
     "start": "node dist/index.js",
-    "gen": "drizzle-kit generate",
-    "migrate": " tsx src/drizzle/migrate.ts",
     "studio": "drizzle-kit studio",
-    "pushs": " drizzle-kit generate && tsx src/drizzle/migrate.ts",
     "push": "drizzle-kit push"
   },
   "dependencies": {
