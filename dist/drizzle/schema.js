@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.userRelations = exports.user = exports.statusCatalog = exports.state = exports.restaurantOwner = exports.restaurantRelations = exports.restaurant = exports.orderStatusRelations = exports.orderStatus = exports.orderMenuItemRelations = exports.orderMenuItem = exports.orderRelations = exports.order = exports.menuItemRelations = exports.menuItem = exports.driverRelations = exports.driver = exports.commentRelations = exports.comment = exports.cityRelations = exports.city = exports.category = exports.addressRelations = exports.address = void 0;
+exports.AuthOnUsersRelations = exports.AuthOnUsersTable = exports.roleEnum = exports.userRelations = exports.user = exports.statusCatalog = exports.state = exports.restaurantOwner = exports.restaurantRelations = exports.restaurant = exports.orderStatusRelations = exports.orderStatus = exports.orderMenuItemRelations = exports.orderMenuItem = exports.orderRelations = exports.order = exports.menuItemRelations = exports.menuItem = exports.driverRelations = exports.driver = exports.commentRelations = exports.comment = exports.cityRelations = exports.city = exports.category = exports.addressRelations = exports.address = void 0;
 const pg_core_1 = require("drizzle-orm/pg-core");
 const drizzle_orm_1 = require("drizzle-orm");
 //adress table
@@ -272,6 +272,7 @@ exports.statusCatalog = (0, pg_core_1.pgTable)("status_catalog", {
     name: (0, pg_core_1.varchar)("name", { length: 255 }).notNull().unique(),
 });
 //user table
+// Define the role enum
 exports.user = (0, pg_core_1.pgTable)("users", {
     id: (0, pg_core_1.serial)("id").primaryKey(),
     name: (0, pg_core_1.varchar)("name", { length: 255 }).notNull(),
@@ -287,4 +288,18 @@ exports.user = (0, pg_core_1.pgTable)("users", {
 exports.userRelations = (0, drizzle_orm_1.relations)(exports.user, ({ many }) => ({
     addresses: many(exports.address),
     orders: many(exports.order)
+}));
+exports.roleEnum = (0, pg_core_1.pgEnum)("role", ["admin", "user"]);
+exports.AuthOnUsersTable = (0, pg_core_1.pgTable)("auth_on_users", {
+    id: (0, pg_core_1.serial)("id").primaryKey(),
+    userId: (0, pg_core_1.integer)("user_id").notNull().references(() => exports.user.id, { onDelete: "cascade" }),
+    password: (0, pg_core_1.varchar)("password", { length: 100 }),
+    username: (0, pg_core_1.varchar)("username", { length: 100 }),
+    role: (0, exports.roleEnum)("role").default("user")
+});
+exports.AuthOnUsersRelations = (0, drizzle_orm_1.relations)(exports.AuthOnUsersTable, ({ one }) => ({
+    user: one(exports.user, {
+        fields: [exports.AuthOnUsersTable.userId],
+        references: [exports.user.id]
+    })
 }));

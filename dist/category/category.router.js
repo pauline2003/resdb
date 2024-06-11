@@ -5,13 +5,14 @@ const hono_1 = require("hono");
 const zod_validator_1 = require("@hono/zod-validator");
 const validators_1 = require("../validators");
 const category_controller_1 = require("../category/category.controller");
+const bearAuth_1 = require("../middleware/bearAuth");
 exports.categoryRouter = new hono_1.Hono();
-//get all address      
-exports.categoryRouter.get("/categories", category_controller_1.listCategory);
-//get a single address   
+//get all address
+exports.categoryRouter.get("/categories", bearAuth_1.userRoleAuth, category_controller_1.listCategory);
+//get a single address
 exports.categoryRouter.get("/categories/:id", category_controller_1.getCategory);
-// create a address 
-exports.categoryRouter.post("/categories", (0, zod_validator_1.zValidator)('json', validators_1.categorySchema, (result, c) => {
+// create a address
+exports.categoryRouter.post("/categories", (0, zod_validator_1.zValidator)("json", validators_1.categorySchema, (result, c) => {
     if (!result.success) {
         return c.json(result.error, 400);
     }

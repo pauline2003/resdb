@@ -23,7 +23,8 @@ const menu_item_router_1 = require("./menu_item/menu_item.router");
 const order_menu_item_router_1 = require("./order_menu_item/order_menu_item.router");
 const order_status_router_1 = require("./order_status/order_status.router");
 const restaurant_owner_router_1 = require("./restaurant_owner/restaurant_owner.router");
-const app = new hono_1.Hono().basePath('/api');
+const auth_router_1 = require("./auth/auth.router");
+const app = new hono_1.Hono();
 // rate limiter
 const limiter = (0, hono_rate_limiter_1.rateLimiter)({
     windowMs: 1 * 60 * 1000, // 1 minute
@@ -61,7 +62,7 @@ app.route("/", menu_item_router_1.menuItemRouter); //menuItemRouter
 app.route("/", order_menu_item_router_1.orderMenuItemRouter); //orderMenuItemRouter
 app.route("/", order_status_router_1.orderStatusRouter); //orderStatusRouter
 app.route("/", restaurant_owner_router_1.restaurantOwnerRouter); //restaurantOwnerRouter
-//rest
+app.route("/auth", auth_router_1.authRouter); // Authentication routes
 (0, node_server_1.serve)({
     fetch: app.fetch,
     port: Number(process.env.PORT)
