@@ -1,0 +1,207 @@
+
+GET http://localhost:8000/auth/login
+
+
+###
+
+POST  http://localhost:8000/auth/register
+Content-Type: application/json
+
+{
+    "userId": 1,
+    "username": "poline",
+    "password": "pass",
+    "role": "admin"
+}
+###
+POST  http://localhost:8000/auth/register
+Content-Type: application/json
+
+{
+    "userId": 3,
+    "username": "dany",
+    "password": "pass1",
+    "role": "user"
+}
+###
+POST http://localhost:8000/auth/register
+
+###
+POST http://localhost:8000/auth/login
+###
+
+GET http://localhost:8000/search/categories?searchTerm=salad
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJqYW5lIiwicm9sZSI6ImFkbWluIiwiZXhwIjoxNzE4MDQ1OTAwfQ.vlF6GsxB_4ovlqOWH72KkwJj0KK4fs41A89kTPYSE64 
+
+###
+
+GET http://localhost:8000/search/cities?searchTerm=a
+
+###
+
+GET http://localhost:8000/restaurant/4/category?categoryName=2
+
+###
+
+GET http://localhost:8000/categories
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJqYW5lIiwicm9sZSI6ImFkbWluIiwiZXhwIjoxNzE4MDk4OTYzfQ.z4gIPfAKjAG7jhQ_HUMLj4vmoHqtxwqfjpaO-43eg4c
+
+###
+
+GET http://localhost:8000/search/users?searchTerm=ja
+
+###
+
+POST http://localhost:8000/restaurants
+Content-Type: application/json
+
+{
+  "name": "The Zod Res",
+  "streetAddress": "123 Main St",
+  "zipCode": "12345",
+  "cityId": 1
+}
+
+
+###
+
+POST http://localhost:8000/address
+Content-Type: application/json
+
+{
+  "streetAddress1": "123 Main St",
+  "streetAddress2": "Apt 4B",
+  "zipCode": "12345",
+  "deliveryInstructions": "Leave at front door",
+  "userId": 2,
+  "cityId": 3
+}
+###
+
+POST http://localhost:8000/orders
+Content-Type: application/json
+
+{
+  "restaurantId": 5,
+  "estimatedDeliveryTime": "2024-06-09T19:30:00Z",
+  "deliveryAddressId": 1,
+  "userId": 2,
+  "price": 50.00,
+  "discount": 5.00,
+  "finalPrice": 45.00,
+  "comment": "Please leave the order at the front door if no one answers."
+}
+
+###
+POST http://localhost:8000/comments
+Content-Type: application/json
+
+{
+  "orderId": 123,
+  "userId": 1,
+  "commentText": "The delivery was quick and the food was delicious!",
+  "isComplaint": false,
+  "isPraise": true
+}
+
+###
+
+PUT http://localhost:8000/states/4
+Content-Type: application/json
+
+{
+    "name": "Uganda",
+    "code":"UG"
+}
+
+###
+
+PUT http://localhost:8000/users/1
+Content-Type: application/json
+
+{
+    "name": "newUser"
+}
+
+
+
+
+###
+
+PUT http://localhost:8000/states/2
+Content-Type: application/json
+
+{
+    "name": "kenya",
+    "code": "KE"
+}
+###
+DELETE http://localhost:8000/address/1
+
+
+
+###
+DELETE http://localhost:8000/restaurants/3
+###
+
+GET http://localhost:8000/api/states/4
+###
+
+GET http://localhost:8000/status-catalog
+
+###
+
+GET http://localhost:8000/users/order/3
+
+
+
+
+
+
+###
+// Service to fetch the status of a particular order by order ID
+GET http://localhost:8000/orderStatus/3/status
+###
+
+GET http://localhost:8000/states/4/cities/3/restaurants
+
+###
+// Service to fetch menu items by restaurant ID
+
+GET http://localhost:8000/restaurants/3/menu_items
+
+
+
+###
+// Service to fetch the owner of a restaurant by restaurant ID
+GET http://localhost:8000/api/restaurants/21/owner
+
+###
+// fetch all restaurants owned by a particular user
+GET http://localhost:8000/restaurantOwner/1/restaurants
+
+
+###
+
+POST  http://localhost:8000/auth/login
+Content-Type: application/json
+
+{
+    "username": "jane",
+    "password": "pass"
+}
+
+###
+
+POST  http://localhost:8000/auth/login
+Content-Type: application/json
+
+{
+    "username": "mary",
+    "password": "pass3"
+}
+
+
+ 
+
+
