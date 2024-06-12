@@ -1,42 +1,53 @@
-import { eq , or, ilike} from "drizzle-orm";
+import { eq, or, ilike } from "drizzle-orm";
 import db from "../drizzle/db";
 // import { Client } from "pg";
-import { TIUser, TSUser, address, order, restaurant, restaurantOwner, user,userRelations } from "../drizzle/schema";
+import {
+  TIUser,
+  TSUser,
+  address,
+  order,
+  restaurant,
+  restaurantOwner,
+  user,
+  userRelations,
+} from "../drizzle/schema";
 
 // export const client = new Client({
 //     connectionString: process.env.Database_URL as string,   //get the database url from the environment
 // })
 // client.connect();
 
-export const usersService = async (limit?: number): Promise<TSUser[] | null> => {
-    if (limit) {
-        return await db.query.user.findMany({
-            limit: limit
-        });
-    }
-    return await db.query.user.findMany();
-}
+export const usersService = async (
+  limit?: number
+): Promise<TSUser[] | null> => {
+  if (limit) {
+    return await db.query.user.findMany({
+      limit: limit,
+    });
+  }
+  return await db.query.user.findMany();
+};
 
-export const getUserService = async (id: number): Promise<TIUser[] | any > => {
-    return await db.query.user.findFirst({
-        where: eq(user.id, id)
-    })
-}
+export const getUserService = async (id: number): Promise<TIUser[] | any> => {
+  return await db.query.user.findFirst({
+    where: eq(user.id, id),
+  });
+};
 
 export const createUserService = async (User: TIUser) => {
-    await db.insert(user).values(User)
-    return "User created successfully";
-}
+  await db.insert(user).values(User);
+  return "User created successfully";
+};
 
 export const updateUserService = async (id: number, userData: TIUser) => {
-    await db.update(user).set(userData).where(eq(user.id, id))
-    return "User updated successfully";
-}
+  await db.update(user).set(userData).where(eq(user.id, id));
+  return "User updated successfully";
+};
 
 export const deleteUserService = async (id: number) => {
-    await db.delete(user).where(eq(user.id, id))
-    return "User deleted successfully";
-}
+  await db.delete(user).where(eq(user.id, id));
+  return "User deleted successfully";
+};
 
 // export const searchUsersService = async (searchTerm: string) => {
 //     const query = `
@@ -48,8 +59,11 @@ export const deleteUserService = async (id: number) => {
 //     return results.rows;
 // };
 
-export const searchUsersService = async (searchTerm: string): Promise<TSUser[] | null> => {
-  const users = await db.select()
+export const searchUsersService = async (
+  searchTerm: string
+): Promise<TSUser[] | null> => {
+  const users = await db
+    .select()
     .from(user)
     .where(
       or(
@@ -57,7 +71,7 @@ export const searchUsersService = async (searchTerm: string): Promise<TSUser[] |
         ilike(user.email, `%${searchTerm}%`)
       )
     );
-  
+
   return users;
 };
 
@@ -94,4 +108,10 @@ export const getRestaurantsByOwnerService = async (userId: number) => {
     .execute();
 
   return restaurants;
+};
+
+export const getUserOrderService = async (id: number) => {
+  return await db.query.order.findMany({
+    where: eq(order.userId, id),
+  });
 };

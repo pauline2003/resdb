@@ -1,7 +1,7 @@
 
 GET http://localhost:8000/auth/login
 
-
+//posting a user
 ###
 
 POST  http://localhost:8000/auth/register
@@ -13,33 +13,33 @@ Content-Type: application/json
     "password": "pass",
     "role": "admin"
 }
+
+//posting a user
 ###
 POST  http://localhost:8000/auth/register
 Content-Type: application/json
 
 {
     "userId": 3,
-    "username": "dany",
+    "username": "poly",
     "password": "pass1",
     "role": "user"
 }
-###
-POST http://localhost:8000/auth/register
+
 
 ###
 POST http://localhost:8000/auth/login
 ###
 
-GET http://localhost:8000/search/categories?searchTerm=salad
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJqYW5lIiwicm9sZSI6ImFkbWluIiwiZXhwIjoxNzE4MDQ1OTAwfQ.vlF6GsxB_4ovlqOWH72KkwJj0KK4fs41A89kTPYSE64 
 
+//getting a user using a token
+GET http://localhost:8000/search/categories?searchTerm=di
+
+//search cities with the "a" in their name
 ###
 
-GET http://localhost:8000/search/cities?searchTerm=a
+GET http://localhost:8000/search/cities?searchTerm=i
 
-###
-
-GET http://localhost:8000/restaurant/4/category?categoryName=2
 
 ###
 
@@ -48,7 +48,7 @@ Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJqYW5lIiwicm9sZSI6
 
 ###
 
-GET http://localhost:8000/search/users?searchTerm=ja
+GET http://localhost:8000/search/users?searchTerm=ne
 
 ###
 
@@ -61,8 +61,9 @@ Content-Type: application/json
   "zipCode": "12345",
   "cityId": 1
 }
-
-
+###
+GET http://localhost:8000/restaurants
+Content-Type: application/json
 ###
 
 POST http://localhost:8000/address
@@ -76,21 +77,8 @@ Content-Type: application/json
   "userId": 2,
   "cityId": 3
 }
-###
 
-POST http://localhost:8000/orders
-Content-Type: application/json
 
-{
-  "restaurantId": 5,
-  "estimatedDeliveryTime": "2024-06-09T19:30:00Z",
-  "deliveryAddressId": 1,
-  "userId": 2,
-  "price": 50.00,
-  "discount": 5.00,
-  "finalPrice": 45.00,
-  "comment": "Please leave the order at the front door if no one answers."
-}
 
 ###
 POST http://localhost:8000/comments
@@ -99,7 +87,7 @@ Content-Type: application/json
 {
   "orderId": 123,
   "userId": 1,
-  "commentText": "The delivery was quick and the food was delicious!",
+  "commentText": "The delivery was slow but the food was delicious!",
   "isComplaint": false,
   "isPraise": true
 }
@@ -123,23 +111,6 @@ Content-Type: application/json
     "name": "newUser"
 }
 
-
-
-
-###
-
-PUT http://localhost:8000/states/2
-Content-Type: application/json
-
-{
-    "name": "kenya",
-    "code": "KE"
-}
-###
-DELETE http://localhost:8000/address/1
-
-
-
 ###
 DELETE http://localhost:8000/restaurants/3
 ###
@@ -151,12 +122,7 @@ GET http://localhost:8000/status-catalog
 
 ###
 
-GET http://localhost:8000/users/order/3
-
-
-
-
-
+GET http://localhost:8000/users
 
 ###
 // Service to fetch the status of a particular order by order ID
@@ -168,7 +134,8 @@ GET http://localhost:8000/states/4/cities/3/restaurants
 ###
 // Service to fetch menu items by restaurant ID
 
-GET http://localhost:8000/restaurants/3/menu_items
+GET http://localhost:8000/drivers
+
 
 
 
@@ -180,10 +147,9 @@ GET http://localhost:8000/api/restaurants/21/owner
 // fetch all restaurants owned by a particular user
 GET http://localhost:8000/restaurantOwner/1/restaurants
 
-
 ###
 
-POST  http://localhost:8000/auth/login
+POST  https://poline-api.azurewebsites.net/auth/login
 Content-Type: application/json
 
 {
@@ -201,7 +167,78 @@ Content-Type: application/json
     "password": "pass3"
 }
 
+###
+POST https://poline-api.azurewebsites.net/auth/login
+Content-Type: application/json
 
- 
+{
+    "username": "mary",
+    "password": "pass2"
+}
 
 
+//my services
+
+
+
+//getting all cities in state with state id 2
+###
+GET http://localhost:8000/state/2/cities
+
+
+###
+// Service to fetch menu items by restaurant ID
+
+GET http://localhost:8000/restaurants/1/menu_items
+
+###
+//getting the city by searching  with the two letters ke
+GET http://localhost:8000/search/cities?searchTerm=ke
+
+###
+
+
+// service getting while  searching for categories that contain the term "di".
+GET http://localhost:8000/search/categories?searchTerm=di
+
+
+###
+// list of restaurants owned by the restaurant owner with ID 1
+GET http://localhost:8000/restaurantOwner/1/restaurants
+###
+
+//get the order information for the user with ID 2
+GET http://localhost:8000/users/2/order
+
+//getting all the users
+###
+
+GET http://localhost:8000/users
+
+###
+
+POST http://localhost:8000/orders
+Content-Type: application/json
+
+{
+  "restaurantId": 5,
+  "estimatedDeliveryTime": "2024-06-09T19:30:00Z",
+  "deliveryAddressId": 1,
+  "userId": 2,
+  "price": 50.00,
+  "discount": 5.00,
+  "finalPrice": 45.00,
+  "comment": "Please dont leave without signing out."
+}
+###
+DELETE http://localhost:8000/menuItem/3
+
+###
+
+PUT http://localhost:8000/cities/2
+Content-Type: application/json
+
+{
+    "name": "kenya",
+    "code": "KE"
+}

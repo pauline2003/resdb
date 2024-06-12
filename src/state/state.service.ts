@@ -1,38 +1,38 @@
-
-
 import { eq } from "drizzle-orm";
 import db from "../drizzle/db";
-import {TIState, TSState, city, restaurant, state } from "../drizzle/schema";
+import { TIState, TSState, city, restaurant, state } from "../drizzle/schema";
 
-export const stateService = async (limit?: number): Promise<TSState[] | null> => {
-    if (limit) {
-        return await db.query.state.findMany({
-            limit: limit
-        });
-    }
-    return await db.query.state.findMany();
-}
+export const stateService = async (
+  limit?: number
+): Promise<TSState[] | null> => {
+  if (limit) {
+    return await db.query.state.findMany({
+      limit: limit,
+    });
+  }
+  return await db.query.state.findMany();
+};
 
 export const getstateService = async (id: number): Promise<TIState[] | any> => {
-    return await db.query.state.findFirst({
-        where: eq(state.id, id)
-    })
-}
+  return await db.query.state.findFirst({
+    where: eq(state.id, id),
+  });
+};
 
 export const createstateService = async (User: TIState) => {
-    await db.insert(state).values(User)
-    return "state created successfully";
-}
+  await db.insert(state).values(User);
+  return "state created successfully";
+};
 
 export const updatestateService = async (id: number, userData: TIState) => {
-    await db.update(state).set(userData).where(eq(state.id, id))
-    return "state updated successfully";
-}
+  await db.update(state).set(userData).where(eq(state.id, id));
+  return "state updated successfully";
+};
 
 export const deletestateService = async (id: number) => {
-    await db.delete(state).where(eq(state.id, id))
-    return "state deleted successfully";
-}
+  await db.delete(state).where(eq(state.id, id));
+  return "state deleted successfully";
+};
 
 // Service to fetch cities by state ID
 export const getCitiesByStateService = async (stateId: number) => {
@@ -54,4 +54,10 @@ export const getRestaurantsByCityService = async (cityId: number) => {
     .execute();
 
   return restaurants;
+};
+
+export const getStateCitiesService = async (id: number) => {
+  return await db.query.city.findMany({
+    where: eq(city.stateId, id),
+  });
 };
