@@ -41,9 +41,6 @@ importers:
       prom-client:
         specifier: ^15.1.2
         version: 15.1.2
-      restaurant_db-main:
-        specifier: 'link:'
-        version: 'link:'
       zod:
         specifier: ^3.23.8
         version: 3.23.8
