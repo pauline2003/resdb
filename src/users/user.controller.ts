@@ -1,7 +1,7 @@
 import { Context } from "hono";
 import {
   usersService,
-  getUserService,
+
   createUserService,
   getUserOrderService,
   updateUserService,
@@ -32,7 +32,7 @@ export const getUser = async (c: Context) => {
   const id = parseInt(c.req.param("id"));
   if (isNaN(id)) return c.text("Invalid ID", 400);
 
-  const user = await getUserService(id);
+  const user = await usersService(id);
   if (user == undefined) {
     return c.text("User not found", 404);
   }
@@ -57,7 +57,7 @@ export const updateUser = async (c: Context) => {
   const user = await c.req.json();
   try {
     // search for the user
-    const searchedUser = await getUserService(id);
+    const searchedUser = await usersService(id);
     if (searchedUser == undefined) return c.text("User not found", 404);
     // get the data and update it
     const res = await updateUserService(id, user);
@@ -76,7 +76,7 @@ export const deleteUser = async (c: Context) => {
 
   try {
     //search for the user
-    const user = await getUserService(id);
+    const user = await usersService(id);
     if (user == undefined) return c.text("User not found", 404);
     //deleting the user
     const res = await deleteUserService(id);
@@ -180,3 +180,4 @@ export const getUsersorders = async (c: Context) => {
     return c.json({ error: error?.message }, 400);
   }
 };
+

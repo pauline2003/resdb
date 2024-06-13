@@ -3,7 +3,7 @@ import { eq } from "drizzle-orm";
 import db from "../drizzle/db";
 import { TIDriver, TSDriver, driver } from "../drizzle/schema";
 
-export const driverService = async (limit?: number): Promise<TSDriver[] | null>  => {
+export const driverService = async (limit?: number): Promise<TSDriver[] | null> => {
     if (limit) {
         return await db.query.driver.findMany({
             limit: limit
@@ -12,11 +12,23 @@ export const driverService = async (limit?: number): Promise<TSDriver[] | null> 
     return await db.query.driver.findMany();
 }
 
-export const getdriverService = async (id: number) : Promise<TIDriver[] | any> => {
-    return await db.query.driver.findFirst({
+export const driveruserService = async (id: number) => {
+    return await db.query.driver.findMany({
+        columns: {
+            carMake: true,
+            carModel: true,
+        },
+        with: {
+            user: {
+                columns: {
+                    name: true,
+                    phone: true
+                }
+            },
+        },
         where: eq(driver.id, id)
-    })
-}
+    });
+};
 
 export const createdriverService = async (User: TIDriver) => {
     await db.insert(driver).values(User)

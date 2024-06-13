@@ -35,11 +35,7 @@ Content-Type: application/json
   "username": "jane",
   "password": "pass"
 }
-###
 
-
-//getting a user using a token
-GET http://localhost:8000/search/categories?searchTerm=di
 
 //search cities with the "a" in their name
 ###
@@ -50,12 +46,9 @@ GET http://localhost:8000/search/cities?searchTerm=i
 ###
 
 GET http://localhost:8000/categories
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJqYW5lIiwicm9sZSI6ImFkbWluIiwiZXhwIjoxNzE4MDk4OTYzfQ.z4gIPfAKjAG7jhQ_HUMLj4vmoHqtxwqfjpaO-43eg4c
+Authorization:  eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJqYW5lIiwicm9sZSI6ImFkbWluIiwiZXhwIjoxNzE4MjczNzA1fQ.Q_NHytTrHzyYM_vuyTpDVzbWX20HTVIpFJ55R-toTqA
 
-###
 
-GET http://localhost:8000/search/users?searchTerm=ne
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJwb2x5Iiwicm9sZSI6InVzZXIiLCJleHAiOjE3MTgyMzExNjh9.JyEIbUCFvSEAYSKkCm-rCFQP8j8Imnet1Sa-kFsk-o8
 ###
 
 POST http://localhost:8000/restaurants
@@ -68,22 +61,9 @@ Content-Type: application/json
   "cityId": 1
 }
 ###
-GET http://localhost:8000/restaurants
-Content-Type: application/json
+GET http://localhost:8000/address
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJqYW5lIiwicm9sZSI6ImFkbWluIiwiZXhwIjoxNzE4MjczNzA1fQ.Q_NHytTrHzyYM_vuyTpDVzbWX20HTVIpFJ55R-toTqA
 ###
-
-POST http://localhost:8000/address
-Content-Type: application/json
-
-{
-  "streetAddress1": "123 Main St",
-  "streetAddress2": "Apt 4B",
-  "zipCode": "12345",
-  "deliveryInstructions": "Leave at front door",
-  "userId": 2,
-  "cityId": 3
-}
-
 
 
 ###
@@ -108,27 +88,11 @@ Content-Type: application/json
     "code":"UG"
 }
 
-###
 
-PUT http://localhost:8000/users/1
-Content-Type: application/json
-
-{
-    "name": "newUser"
-}
-
-###
-DELETE http://localhost:8000/restaurants/3
-###
-
-GET http://localhost:8000/api/states/4
-###
-
-GET http://localhost:8000/status-catalog
 
 ###
 
-GET http://localhost:8000/users
+GET http://localhost:8000/users/1
 
 ###
 // Service to fetch the status of a particular order by order ID
@@ -137,13 +101,11 @@ GET http://localhost:8000/orderStatus/3/status
 
 GET http://localhost:8000/states/4/cities/3/restaurants
 
+
 ###
-// Service to fetch menu items by restaurant ID
 
-GET http://localhost:8000/drivers
-
-
-
+//getting a category with letter n
+GET http://localhost:8000/search/categories?searchTerm=n
 
 ###
 // Service to fetch the owner of a restaurant by restaurant ID
@@ -169,8 +131,8 @@ POST  http://localhost:8000/auth/login
 Content-Type: application/json
 
 {
-    "username": "ann",
-    "password": "pass3"
+    "username": "jane",
+    "password": "pass"
 }
 
 ###
@@ -190,7 +152,7 @@ Content-Type: application/json
 //getting all cities in state with state id 2
 ###
 GET http://localhost:8000/state/2/cities
-
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJqYW5lIiwicm9sZSI6ImFkbWluIiwiZXhwIjoxNzE4MjczNzA1fQ.Q_NHytTrHzyYM_vuyTpDVzbWX20HTVIpFJ55R-toTqA
 
 ###
 // Service to fetch menu items by restaurant ID
@@ -209,17 +171,23 @@ GET http://localhost:8000/search/categories?searchTerm=di
 
 
 ###
-// list of restaurants owned by the restaurant owner with ID 1
-GET http://localhost:8000/restaurantOwner/1/restaurants
+// tring to find a restaurant  restaurants owned by the restaurant owner with ID 1
+GET http://localhost:8000/restaurantOwner/2/restaurants
 ###
 
 //get the order information for the user with ID 2
 GET http://localhost:8000/users/2/order
 
-//getting all the users
 ###
+// Service to fetch the owner of a restaurant by restaurant ID + checling authorization 
+GET http://localhost:8000/api/restaurants/21/owner
+uthorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJqYW5lIiwicm9sZSI6ImFkbWluIiwiZXhwIjoxNzE4MjczNzA1fQ.Q_NHytTrHzyYM_vuyTpDVzbWX20HTVIpFJ55R-toTqA
 
-GET http://localhost:8000/users
+//end of services
+
+###
+//getting all the users
+
 
 ###
 
@@ -237,7 +205,7 @@ Content-Type: application/json
   "comment": "Please dont leave without signing out."
 }
 ###
-DELETE http://localhost:8000/menuItem/3
+DELETE http://localhost:8000/menuItem/2
 
 ###
 
@@ -250,7 +218,7 @@ Content-Type: application/json
 }
 
 
-//authorization code
+
 
 ###
 POST  http://localhost:8000/auth/register
@@ -262,7 +230,7 @@ Content-Type: application/json
     "password": "pass1",
     "role": "user"
 }
-
+//login as a user
 
 ###
 POST http://localhost:8000/auth/login
@@ -272,25 +240,56 @@ Content-Type: application/json
   "username": "poly",
   "password": "pass1"
 }
+
+//only admins can get the users
 ###
-
 GET http://localhost:8000/search/users?searchTerm=ne
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJwb2x5Iiwicm9sZSI6InVzZXIiLCJleHAiOjE3MTgyMzExNjh9.JyEIbUCFvSEAYSKkCm-rCFQP8j8Imnet1Sa-kFsk-o8
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJqYW5lIiwicm9sZSI6ImFkbWluIiwiZXhwIjoxNzE4Mjk1MDc1fQ.OEs72NzWW9N4xAxAzffD5W0uVCMYq9v6VM6xlgl6XAI
 
+
+//only admins can delete a user
 ###
 DELETE http://localhost:8000/users/1
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJqYW5lIiwicm9sZSI6ImFkbWluIiwiZXhwIjoxNzE4MjMyMDQzfQ.QchpYgMZ1IjH9kVrYkHorPa6zpIq1C6QypgRXDIqcLg
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJqYW5lIiwicm9sZSI6ImFkbWluIiwiZXhwIjoxNzE4Mjk1MDc1fQ.OEs72NzWW9N4xAxAzffD5W0uVCMYq9v6VM6xlgl6XAI
 ###
+//
 
+//only admins can post an address
 POST http://localhost:8000/address
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJqYW5lIiwicm9sZSI6ImFkbWluIiwiZXhwIjoxNzE4MjMyMDQzfQ.QchpYgMZ1IjH9kVrYkHorPa6zpIq1C6QypgRXDIqcLg
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJqYW5lIiwicm9sZSI6ImFkbWluIiwiZXhwIjoxNzE4Mjk1MDc1fQ.OEs72NzWW9N4xAxAzffD5W0uVCMYq9v6VM6xlgl6XAI
 Content-Type: application/json
 
 {
   "streetAddress1": "123 Main St",
   "streetAddress2": "Apt 4B",
   "zipCode": "12345",
-  "deliveryInstructions": "Leave at front door",
+  "deliveryInstructions": "don't leave without signing the clock out",
   "userId": 2,
   "cityId": 3
 }
+
+
+//getting address with admin token
+###
+GET http://localhost:8000/address
+Authorization:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJqYW5lIiwicm9sZSI6ImFkbWluIiwiZXhwIjoxNzE4Mjk1MDc1fQ.OEs72NzWW9N4xAxAzffD5W0uVCMYq9v6VM6xlgl6XAI
+
+
+//only admins can delete all cities
+###
+GET http://localhost:8000/states/2
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJqYW5lIiwicm9sZSI6ImFkbWluIiwiZXhwIjoxNzE4MjczNzA1fQ.Q_NHytTrHzyYM_vuyTpDVzbWX20HTVIpFJ55R-toTqA
+
+
+//only admins can delete orders
+###
+DELETE  http://localhost:8000/orders/2
+Authorization:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJqYW5lIiwicm9sZSI6ImFkbWluIiwiZXhwIjoxNzE4Mjk1MDc1fQ.OEs72NzWW9N4xAxAzffD5W0uVCMYq9v6VM6xlgl6XAI
+ 
+
+
+ 
+//relationship
+###
+GET  http://localhost:8000/users/userorder/2
+

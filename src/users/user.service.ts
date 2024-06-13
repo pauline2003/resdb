@@ -28,10 +28,22 @@ export const usersService = async (
   return await db.query.user.findMany();
 };
 
-export const getUserService = async (id: number): Promise<TIUser[] | any> => {
+export const getUsersOrdersService = async (id: number) => {
   return await db.query.user.findFirst({
-    where: eq(user.id, id),
-  });
+    columns: {
+      name: true,
+      phoneVerified: true,
+      email: true
+    },
+    with: {
+      orders: {
+        columns: {
+          price: true,
+          discount: true
+        }
+      }
+    }
+  })
 };
 
 export const createUserService = async (User: TIUser) => {
@@ -110,8 +122,4 @@ export const getRestaurantsByOwnerService = async (userId: number) => {
   return restaurants;
 };
 
-export const getUserOrderService = async (id: number) => {
-  return await db.query.order.findMany({
-    where: eq(order.userId, id),
-  });
-};
+

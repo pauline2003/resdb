@@ -1,22 +1,40 @@
 import { Hono } from "hono";
 import { zValidator } from "@hono/zod-validator";
 import { restaurantOwnerSchema } from "../validators";
-import { createrestaurantOwner, deleterestaurantOwner, getRestaurantOwnerController, getrestaurantOwner, listrestaurantOwner, updaterestaurantOwner } from "./restaurant_owner.controller";
+import {
+  createrestaurantOwner,
+  deleterestaurantOwner,
+  getRestaurantOwnerController,
+  getrestaurantOwner,
+  listrestaurantOwner,
+  updaterestaurantOwner,
+} from "./restaurant_owner.controller";
+import { adminRoleAuth } from "../middleware/bearAuth";
 export const restaurantOwnerRouter = new Hono();
 
-//get all address      
+//get all address
 restaurantOwnerRouter.get("/restaurantOwner", listrestaurantOwner);
-//get a single address   
-restaurantOwnerRouter.get("/restaurantOwner/:id", getrestaurantOwner)
-// create a address 
-restaurantOwnerRouter.post("/restaurantOwner", zValidator('json', restaurantOwnerSchema, (result, c) => {
+//get a single address
+restaurantOwnerRouter.get("/restaurantOwner/:id", getrestaurantOwner);
+// create a address
+restaurantOwnerRouter.post(
+  "/restaurantOwner",
+  zValidator("json", restaurantOwnerSchema, (result, c) => {
     if (!result.success) {
-        return c.json(result.error, 400)
+      return c.json(result.error, 400);
     }
-}), createrestaurantOwner)
+  }),
+  createrestaurantOwner
+);
 
-restaurantOwnerRouter.put("/restaurantOwner/:id", updaterestaurantOwner)
+restaurantOwnerRouter.put("/restaurantOwner/:id", updaterestaurantOwner);
 
-
-restaurantOwnerRouter.delete("/restaurantOwner/:id", deleterestaurantOwner)
-restaurantOwnerRouter.get('/restaurants/:id/owner', getRestaurantOwnerController);
+restaurantOwnerRouter.delete(
+  "/restaurantOwner/:id",
+  adminRoleAuth,
+  deleterestaurantOwner
+);
+restaurantOwnerRouter.get(
+  "/restaurants/:id/owner",
+  getRestaurantOwnerController
+);
