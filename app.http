@@ -272,7 +272,7 @@ Content-Type: application/json
 //getting address with admin token
 ###
 GET http://localhost:8000/address
-Authorization:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJqYW5lIiwicm9sZSI6ImFkbWluIiwiZXhwIjoxNzE4Mjk1MDc1fQ.OEs72NzWW9N4xAxAzffD5W0uVCMYq9v6VM6xlgl6XAI
+Authorization:eyuhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJqYW5lIiwicm9sZSI6ImFkbWluIiwiZXhwIjoxNzE4Mjk1MDc1fQ.OEs72NzWW9N4xAxAzffD5W0uVCMYq9v6VM6xlgl6XAI
 
 
 //only admins can delete all cities

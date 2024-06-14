@@ -3,7 +3,7 @@ import {
   usersService,
 
   createUserService,
-  getUserOrderService,
+
   updateUserService,
   deleteUserService,
   searchUsersService,
@@ -169,15 +169,4 @@ export const getRestaurantsByOwnerController = async (c: Context) => {
   }
 };
 
-export const getUsersorders = async (c: Context) => {
-  const userId = Number(c.req.param("id"));
-  if (isNaN(userId)) return c.text("Invalid ID", 400);
-
-  try {
-    const order = await getUserOrderService(userId);
-    return c.json(order, 200);
-  } catch (error: any) {
-    return c.json({ error: error?.message }, 400);
-  }
-};
 
