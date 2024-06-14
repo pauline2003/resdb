@@ -6,7 +6,6 @@ import {
   updateUser,
   deleteUser,
   searchUsers,
-  getUsersorders,
   getUsersByOrderController,
   getAddressesByUserController,
   getRestaurantsByOwnerController,
@@ -45,5 +44,4 @@ userRouter.get(
   "restaurantOwner/:id/restaurants",
   getRestaurantsByOwnerController
 );
-userRouter.get("/users/userorder/:id", getUsersorders);
 
