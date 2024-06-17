@@ -34,3 +34,18 @@ export const userLoginService = async (user: TSAuthOnUser) => {
     },
   });
 };
+
+export const getEmailByUserId = async (id: number): Promise<string | null> => {
+  const result = await db.query.user.findFirst({
+    columns: {
+      email: true,
+    },
+    where: (usr, { eq }) => eq(usr.id, id),
+  });
+
+  if (!result) {
+    return null;
+  }
+
+  return result.email;
+};
